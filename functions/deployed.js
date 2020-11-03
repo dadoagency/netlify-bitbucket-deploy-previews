@@ -33,14 +33,14 @@ exports.handler = async function (event, context) {
 		});
 
 		const pullRequests = await bitbucketClient.get(
-			`/pullrequests?q=source.branch.name="${body.branch}"`
+			`/pullrequests?q=source.branch.name="${body.branch}" and state="OPEN"`
 		);
 
 		// 5 - add comment with deploy url for each pr
 		if (pullRequests.data.size > 0) {
 			const commentRequests = pullRequests.data.values.map(({ id }) => {
 				return bitbucketClient.post(`/pullrequests/${id}/comments`, {
-                     content: { raw: `preview URL ${body.deploy_ssl_url}` } ,
+                     content: { raw: `preview URL [${body.deploy_ssl_url}] (${body.deploy_ssl_url})` } ,
 				});
 			});
 
