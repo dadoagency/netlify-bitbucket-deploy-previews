@@ -1,0 +1,8 @@
+{
+  "dependencies": {
+    "axios": "^0.21.0",
+    "custom-env": "^2.0.1",
+    "express": "^4.17.1",
+    "netlify": "^4.9.0"
+  }
+}
