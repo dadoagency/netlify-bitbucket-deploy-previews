@@ -14,7 +14,7 @@ const netlifyClient = new NetlifyAPI(process.env.NETLIFY_API_TOKEN);
 exports.handler = async function (event, context) {
     try {
         const body = JSON.parse(event.body)
-        
+		console.log(body);
 		// 1 get site id
 		const siteId = body.site_id;
 		// 2 get site details
@@ -37,10 +37,14 @@ exports.handler = async function (event, context) {
 		);
 
 		// 5 - add comment with deploy url for each pr
+		const buildID = body.id;
+		const name = body.name;
+		const buildURL = `https://${buildID}--${name}.netlify.app`;
+		console.log('build url', buildURL)
 		if (pullRequests.data.size > 0) {
 			const commentRequests = pullRequests.data.values.map(({ id }) => {
 				return bitbucketClient.post(`/pullrequests/${id}/comments`, {
-                     content: { raw: `preview URL [${body.deploy_ssl_url}](${body.deploy_ssl_url})` } ,
+                     content: { raw: `preview URL [${buildURL}](${buildURL})` } ,
 				});
 			});
 
