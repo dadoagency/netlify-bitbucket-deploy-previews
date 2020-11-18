@@ -52,9 +52,9 @@ exports.handler = async function (event, context) {
             return { statusCode: 200, body: "comments added" }
 		}
 
-		return { statusCode: 400, body: `No PRs found for branch ${body.branch}` };
+		return { statusCode: 200, body: `No PRs found for branch ${body.branch}` };
         
 	} catch (e) {
-		return { statusCode: 500, body: e.toString() };
+		return { statusCode: 200, body: e.toString() };
 	}
 };
