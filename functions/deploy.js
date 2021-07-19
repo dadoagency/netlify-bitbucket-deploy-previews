@@ -32,6 +32,10 @@ exports.handler = async function (event, context) {
         url = getBuildURL(process.env.ECOM_NETLIFY_BUILD_HASH, branch);
         break;
 
+      case process.env.CAP_NEXTJS_REPOSITORY_NAME:
+        url = getBuildURL(process.env.CAP_NEXTJS_NETLIFY_BUILD_HASH, branch);
+        break;
+
       default:
         break;
     }
